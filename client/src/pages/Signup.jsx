@@ -89,7 +89,7 @@ function Signup() {
         <div className="relative z-10">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-white/5 border border-white/10 rounded-full mb-8">
             <Sparkles size={14} className="text-indigo-400" />
-            <span className="text-[10px] font-black uppercase tracking-[0.3em] text-indigo-200">The 2026 Protocol</span>
+            <span className="text-[10px] font-black uppercase tracking-[0.3em] text-indigo-200">Live</span>
           </div>
           <h2 className="text-6xl xl:text-8xl font-black text-white tracking-tighter leading-[0.85] mb-8">
             {step === 1 ? "Design" : "Verify"} <br /> your <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-cyan-400 to-emerald-400">identity.</span>
@@ -113,7 +113,7 @@ function Signup() {
               <>
                 <header className="mb-8 stagger-field">
                   <h1 className="text-4xl font-black text-slate-900 tracking-tighter mb-2">Sign Up</h1>
-                  <p className="text-slate-500 font-medium">Create your unique identifier.</p>
+                  <p className="text-slate-500 font-medium">Create your unique identity.</p>
                 </header>
 
                 <form onSubmit={handleSendOTP} className="space-y-4">
