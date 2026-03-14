@@ -1,0 +1,31 @@
+<svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+  
+  <!-- Outer orbit -->
+  <path d="M25 4C36.598 4 46 13.402 46 25C46 36.598 36.598 46 25 46"
+        stroke="#6366F1"
+        stroke-width="3"
+        stroke-linecap="round"/>
+  
+  <!-- Dashed orbit (changed from white to gray) -->
+  <path d="M25 4C13.402 4 4 13.402 4 25"
+        stroke="#6B7280"
+        stroke-width="3"
+        stroke-dasharray="4 4"
+        stroke-linecap="round"
+        opacity="0.6"/>
+
+  <!-- Main shape -->
+  <path d="M25 10L33 22V36C33 39 30 41 25 41C20 41 17 39 17 36V22L25 10Z"
+        fill="#4FD1C5"/>
+  
+  <!-- Center line (changed from white) -->
+  <rect x="24.5" y="24" width="1" height="12" fill="#1F2937" opacity="0.7"/>
+
+  <!-- Center dot -->
+  <circle cx="25" cy="23" r="1.5" fill="#1F2937"/>
+
+  <!-- Orbit dots -->
+  <circle cx="46" cy="25" r="3" fill="#6366F1"/>
+  <circle cx="4" cy="25" r="1.5" fill="#374151"/>
+
+</svg>
