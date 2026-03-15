@@ -8,7 +8,7 @@ BlogVerse isn't just a blogging site; it's a demonstration of modern full-stack 
 
 ## 🔗 Production Endpoints
 * **Platform:** https://blogverse-seven.vercel.app/
-* **API Gateway:** https://blogverse-0ujm.onrender.com
+
 
 ---
 
