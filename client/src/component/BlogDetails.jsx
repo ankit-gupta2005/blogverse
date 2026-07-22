@@ -258,7 +258,7 @@ function BlogDetails() {
             </div>
             <h3 className="text-2xl font-black text-slate-900 tracking-tighter mb-2 uppercase">Delete Entry?</h3>
             <p className="text-slate-500 text-sm font-medium leading-relaxed mb-8">
-              This action is permanent. All data associated with this entry will be wiped from the network.
+              This action is permanent. All data associated with this entry will be wiped from this network.
             </p>
             <div className="flex gap-3">
               <button 
