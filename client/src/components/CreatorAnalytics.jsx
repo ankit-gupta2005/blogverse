@@ -136,7 +136,7 @@ const CreatorAnalytics = () => {
                     dataKey="value"
                     paddingAngle={5}
                   >
-                    {pieChartData.map((entry, index) => (
+                    {pieChartData.map((_, index) => (
                       <Cell
                         key={`cell-${index}`}
                         fill={COHORT_COLORS[index % COHORT_COLORS.length]}
