@@ -7,7 +7,7 @@ BlogVerse isn't just a blogging site; it's a demonstration of modern full-stack 
 ---
 
 ## 🔗 Production Endpoints
-* **Platform:** https://blogverse-seven.vercel.app/
+* **Platform:** https://blogverse-git-test-ankits-projects-2054500f.vercel.app/
 
 
 ---
