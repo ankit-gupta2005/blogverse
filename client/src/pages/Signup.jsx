@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import API from '../services/api';
 import { toast } from "react-toastify";
-import { Eye, EyeOff, ShieldCheck, Sparkles, ArrowRight, Loader2, KeyRound, RotateCcw, UserPlus } from "lucide-react";
+import { Eye, EyeOff, ShieldCheck, Sparkles, ArrowRight, Loader2, KeyRound, RotateCcw } from "lucide-react";
 import { gsap } from "gsap";
 
 function Signup() {
@@ -30,12 +30,8 @@ function Signup() {
 
   async function handleSendOTP(e) {
     if (e) e.preventDefault();
-    if (!name || !email || !password || !confirmPassword) {
-      return toast.warn("Please fill in all required fields.");
-    }
-    if (password !== confirmPassword) {
-      return toast.error("Passwords do not match!");
-    }
+    if (!name || !email || !password || !confirmPassword) return toast.warn("Please fill all fields");
+    if (password !== confirmPassword) return toast.error("Passwords do not match");
 
     setIsSubmitting(true);
     try {
@@ -50,29 +46,25 @@ function Signup() {
           gsap.fromTo(".step-container", { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.4 });
         } 
       });
-      toast.success("Verification code sent to your email!");
+      toast.info("Verification code sent to your email");
     } catch (err) {
-      const errorMessage = err.response?.data?.message || err.message || "Failed to send verification code";
-      toast.error(errorMessage);
+      toast.error(err.response?.data?.message || "Failed to send OTP");
     } finally {
       setIsSubmitting(false);
     }
   }
 
   async function handleVerifyAndSignup(e) {
-    if (e) e.preventDefault();
-    if (!otp || otp.length < 6) {
-      return toast.warn("Please enter the full 6-digit verification code.");
-    }
+    e.preventDefault();
+    if (!otp || otp.length < 6) return toast.warn("Please enter the full 6-digit code");
 
     setIsSubmitting(true);
     try {
       await API.post('/auth/signup', { name, email, password, otp });
-      toast.success("Account created successfully! Welcome to BlogVerse.");
+      toast.success("Identity Verified. Welcome!");
       navigate("/login");
     } catch (err) {
-      const errorMessage = err.response?.data?.message || err.message || "Invalid or expired OTP code";
-      toast.error(errorMessage);
+      toast.error(err.response?.data?.message || "Invalid or expired OTP");
     } finally {
       setIsSubmitting(false);
     }
@@ -80,7 +72,6 @@ function Signup() {
 
   return (
     <div ref={containerRef} className="min-h-screen bg-[#f8fafc] flex overflow-hidden selection:bg-indigo-600 selection:text-white">
-      {/* Brand Left Panel */}
       <div className="brand-panel hidden lg:flex lg:w-1/2 bg-[#020617] relative overflow-hidden flex-col justify-between p-16 xl:p-24">
         <div className="absolute inset-0 z-0">
           <div className="glow-blob absolute top-[-10%] left-[-10%] w-[70%] h-[70%] bg-indigo-600/20 rounded-full blur-[120px]" />
@@ -106,7 +97,6 @@ function Signup() {
         </div>
       </div>
 
-      {/* Main Form Container */}
       <div className="flex-1 flex flex-col items-center justify-center p-6 bg-slate-50/50 overflow-y-auto no-scrollbar">
         <div className="lg:hidden flex items-center gap-3 mb-10 stagger-field">
           <Link to="/" className="flex items-center gap-3">
@@ -129,44 +119,19 @@ function Signup() {
                 <form onSubmit={handleSendOTP} className="space-y-4">
                   <div className="stagger-field space-y-1">
                     <label className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400 ml-1">Full Name</label>
-                    <input 
-                      type="text" 
-                      placeholder="Your NAme" 
-                      value={name}
-                      required
-                      className="w-full bg-slate-50 border border-slate-100 px-6 py-4 rounded-2xl outline-none focus:border-indigo-600 focus:bg-white transition-all text-slate-900 font-medium" 
-                      onChange={(e) => setName(e.target.value)} 
-                    />
+                    <input type="text" placeholder="Name" className="w-full bg-slate-50 border border-slate-100 px-6 py-4 rounded-2xl outline-none focus:border-indigo-600 focus:bg-white transition-all text-slate-900 font-medium" onChange={(e) => setName(e.target.value)} />
                   </div>
 
                   <div className="stagger-field space-y-1">
                     <label className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400 ml-1">Email Address</label>
-                    <input 
-                      type="email" 
-                      placeholder="ex@gmail.com" 
-                      value={email}
-                      required
-                      className="w-full bg-slate-50 border border-slate-100 px-6 py-4 rounded-2xl outline-none focus:border-indigo-600 focus:bg-white transition-all text-slate-900 font-medium" 
-                      onChange={(e) => setEmail(e.target.value)} 
-                    />
+                    <input type="email" placeholder="example@gmail.com" className="w-full bg-slate-50 border border-slate-100 px-6 py-4 rounded-2xl outline-none focus:border-indigo-600 focus:bg-white transition-all text-slate-900 font-medium" onChange={(e) => setEmail(e.target.value)} />
                   </div>
 
                   <div className="stagger-field space-y-1">
                     <label className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400 ml-1">Password</label>
                     <div className="relative">
-                      <input 
-                        type={showPassword ? "text" : "password"} 
-                        placeholder="••••••••"
-                        value={password}
-                        required
-                        className="w-full bg-slate-50 border border-slate-100 px-6 py-4 rounded-2xl outline-none focus:border-indigo-600 focus:bg-white transition-all text-slate-900 font-medium" 
-                        onChange={(e) => setPassword(e.target.value)} 
-                      />
-                      <button 
-                        type="button" 
-                        className="absolute right-6 top-1/2 -translate-y-1/2 text-slate-300 hover:text-indigo-600 transition-colors" 
-                        onClick={() => setShowPassword(!showPassword)}
-                      >
+                      <input type={showPassword ? "text" : "password"} className="w-full bg-slate-50 border border-slate-100 px-6 py-4 rounded-2xl outline-none focus:border-indigo-600 focus:bg-white transition-all text-slate-900 font-medium" onChange={(e) => setPassword(e.target.value)} />
+                      <button type="button" className="absolute right-6 top-1/2 -translate-y-1/2 text-slate-300 hover:text-indigo-600" onClick={() => setShowPassword(!showPassword)}>
                         {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                       </button>
                     </div>
@@ -174,29 +139,11 @@ function Signup() {
 
                   <div className="stagger-field space-y-1">
                     <label className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400 ml-1">Confirm Password</label>
-                    <input 
-                      type="password" 
-                      placeholder="••••••••"
-                      value={confirmPassword}
-                      required
-                      className="w-full bg-slate-50 border border-slate-100 px-6 py-4 rounded-2xl outline-none focus:border-indigo-600 focus:bg-white transition-all text-slate-900 font-medium" 
-                      onChange={(e) => setConfirmPassword(e.target.value)} 
-                    />
+                    <input type="password" className="w-full bg-slate-50 border border-slate-100 px-6 py-4 rounded-2xl outline-none focus:border-indigo-600 focus:bg-white transition-all text-slate-900 font-medium" onChange={(e) => setConfirmPassword(e.target.value)} />
                   </div>
 
-                  {/* Explicit Sign Up Button */}
-                  <button 
-                    type="submit"
-                    disabled={isSubmitting} 
-                    className="stagger-field w-full py-5 bg-indigo-600 text-white rounded-2xl font-black text-[11px] uppercase tracking-[0.3em] hover:bg-indigo-700 transition-all flex items-center justify-center gap-3 group disabled:opacity-50 mt-6 active:scale-95 shadow-xl shadow-indigo-100 cursor-pointer"
-                  >
-                    {isSubmitting ? (
-                      <Loader2 className="w-5 h-5 animate-spin" />
-                    ) : (
-                      <>
-                        <UserPlus size={16} /> Sign Up & Request OTP <ArrowRight size={16} />
-                      </>
-                    )}
+                  <button disabled={isSubmitting} className="stagger-field w-full py-5 bg-slate-950 text-white rounded-2xl font-black text-[11px] uppercase tracking-[0.3em] hover:bg-indigo-600 transition-all flex items-center justify-center gap-3 group disabled:opacity-50 mt-4 active:scale-95 shadow-lg">
+                    {isSubmitting ? <Loader2 className="w-5 h-5 animate-spin" /> : <>Request OTP <ArrowRight size={16} /></>}
                   </button>
                 </form>
               </>
@@ -218,35 +165,21 @@ function Signup() {
                       maxLength="6"
                       autoFocus
                       placeholder="••••••" 
-                      value={otp}
-                      required
                       className="w-full bg-slate-50 border-2 border-dashed border-slate-200 px-6 py-5 rounded-2xl outline-none text-center text-3xl font-black tracking-[0.4em] focus:border-indigo-600 focus:bg-white transition-all placeholder:text-slate-200"
                       onChange={(e) => setOtp(e.target.value)}
                     />
                   </div>
 
-                  <button 
-                    type="submit"
-                    disabled={isSubmitting} 
-                    className="w-full py-5 bg-indigo-600 text-white rounded-2xl font-black text-[11px] uppercase tracking-[0.3em] hover:bg-indigo-700 transition-all shadow-xl shadow-indigo-100 flex items-center justify-center gap-3 active:scale-95 cursor-pointer disabled:opacity-50"
-                  >
-                    {isSubmitting ? <Loader2 className="w-5 h-5 animate-spin" /> : "Verify & Create Account"}
+                  <button disabled={isSubmitting} className="w-full py-5 bg-indigo-600 text-white rounded-2xl font-black text-[11px] uppercase tracking-[0.3em] hover:bg-indigo-700 transition-all shadow-xl shadow-indigo-100 flex items-center justify-center gap-3 active:scale-95">
+                    {isSubmitting ? <Loader2 className="w-5 h-5 animate-spin" /> : "Verify & Complete"}
                   </button>
 
                   <div className="flex flex-col gap-4">
-                    <button 
-                      type="button" 
-                      onClick={handleSendOTP} 
-                      className="flex items-center justify-center gap-2 text-[10px] font-black uppercase tracking-widest text-indigo-600 hover:text-indigo-800 transition-colors"
-                    >
-                      <RotateCcw size={12} /> Resend Verification Code
+                    <button type="button" onClick={handleSendOTP} className="flex items-center justify-center gap-2 text-[10px] font-black uppercase tracking-widest text-indigo-600 hover:text-indigo-800">
+                      <RotateCcw size={12} /> Resend Code
                     </button>
-                    <button 
-                      type="button" 
-                      onClick={() => setStep(1)} 
-                      className="text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-slate-600 transition-colors"
-                    >
-                      ← Edit Registration Details
+                    <button type="button" onClick={() => setStep(1)} className="text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-slate-600 transition-colors">
+                      ← Edit Details
                     </button>
                   </div>
                 </form>
