@@ -16,9 +16,9 @@ export default API;
 
 export const getBlogs = (page = 1, search = "") => API.get(`/blog?page=${page}&search=${search}`);
 export const singleBlog = (id) => API.get(`/blog/${id}`);
-export const createBlog = (data) => API.post('/blog', data, { headers: { 'Content-Type': 'multipart/form-data' } });
+export const createBlog = (data) => API.post('/blog', data);
 export const deleteBlog = (id) => API.delete(`/blog/${id}`);
-export const updateBlog = (id, data) => API.put(`/blog/${id}`, data, { headers: { 'Content-Type': 'multipart/form-data' } });
+export const updateBlog = (id, data) => API.put(`/blog/${id}`, data);
 export const toggleLike = (id) => API.post(`/blog/like/${id}`);
 
 export const getProfile = (id) => {
@@ -28,9 +28,7 @@ export const getProfile = (id) => {
   return API.get("/user/profile"); 
 };
 
-export const updateProfile = (data) => API.put(`/user/profile`, data, { 
-  headers: { 'Content-Type': 'multipart/form-data' } 
-});
+export const updateProfile = (data) => API.put(`/user/profile`, data);
 
 export const getUserBlogs = (id) => API.get(`/user/${id}/blogs`);
 export const getMyBlogs = () => API.get(`/user/me/blogs`);

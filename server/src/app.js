@@ -8,16 +8,19 @@ const authRoutes = require("./routes/authRoutes");
 const userRoutes = require("./routes/userRoutes");
 const blogRoutes = require("./routes/blogRoutes");
 const commentRoutes = require("./routes/commentRoutes");
+const analyticsRoutes = require("./routes/analyticsRoutes"); // <-- Imported
 const connectDB = require("./config/db");
 
 const app = express();
 
 connectDB(); 
 
-app.use(cors({
+app.use(
+  cors({
     origin: process.env.FRONTEND_URL || "http://localhost:5173",
-    credentials: true
-}));
+    credentials: true,
+  })
+);
 
 app.use(express.json());
 
@@ -25,9 +28,10 @@ app.use("/api/auth", authRoutes);
 app.use("/api/user", userRoutes);
 app.use("/api/blog", blogRoutes);
 app.use("/api/comment", commentRoutes);
+app.use("/api/analytics", analyticsRoutes); // <-- Mounted
 
 app.get("/", (req, res) => {
-    res.send("BlogVerse API is running...");
+  res.send("BlogVerse API is running...");
 });
 
 module.exports = app;

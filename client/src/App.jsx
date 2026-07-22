@@ -16,7 +16,7 @@ import Profile from './pages/Profile'
 import SavedBlogs from './pages/SavedBlogs'
 import { getProfile } from './services/api'
 import Settings from './pages/Settings'
-import ForgotPassword from './pages/ForgotPassword'
+import CreatorAnalytics from './components/CreatorAnalytics'
 
 function App() {
   useEffect(() => {
@@ -61,9 +61,8 @@ function App() {
         <Route path="/drafts" element={<ProtectedRoute><Layout><Drafts /></Layout></ProtectedRoute>} />
         <Route path="/create" element={<ProtectedRoute><Layout><CreateBlog /></Layout></ProtectedRoute>} />
         <Route path="/edit/:id" element={<ProtectedRoute><Layout><EditBlog /></Layout></ProtectedRoute>} />
-        <Route path='/settings' element={<ProtectedRoute><Layout><Settings/></Layout></ProtectedRoute>}/>
-        <Route path="/forgot-password" element={<ForgotPassword />} />
-
+        <Route path="/settings" element={<ProtectedRoute><Layout><Settings/></Layout></ProtectedRoute>}/>
+        <Route path="/analytics" element={<ProtectedRoute><Layout><CreatorAnalytics/></Layout></ProtectedRoute>}/>
       </Routes>
     </>
   )

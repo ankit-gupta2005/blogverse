@@ -85,14 +85,26 @@ exports.getAllBlogs = async (req, res) => {
 
 exports.getBlogById = async (req, res) => {
   try {
-    const blog = await Blog.findById(req.params.id)
-      .populate("author", "name email profileImage bio followers");
+    const blog = await Blog.findById(req.params.id).populate(
+      "author",
+      "name email profileImage bio followers"
+    );
 
     if (!blog) return res.status(404).json({ message: "Blog not found" });
 
-    if (!blog.isPublished && (!req.user || blog.author._id.toString() !== req.user._id.toString())) {
+    if (
+      !blog.isPublished &&
+      (!req.user || blog.author._id.toString() !== req.user._id.toString())
+    ) {
       return res.status(403).json({ message: "Access denied" });
     }
+
+    blog.views = (blog.views || 0) + 1;
+    blog.viewLogs.push({
+      timestamp: new Date(),
+      viewerId: req.user ? req.user._id : null,
+    });
+    await blog.save();
 
     res.status(200).json(blog);
   } catch (err) {

@@ -120,12 +120,6 @@ function Login() {
             <div className="stagger-field space-y-2">
               <div className="flex justify-between items-center px-1">
                 <label className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400">Password</label>
-                <Link 
-                  to="/forgot-password" 
-                  className="text-[10px] font-black uppercase tracking-widest text-indigo-600 hover:text-indigo-700 transition-colors"
-                >
-                  Forgot?
-                </Link>
               </div>
               <div className="relative">
                 <input

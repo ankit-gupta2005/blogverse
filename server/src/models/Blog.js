@@ -26,6 +26,18 @@ const blogSchema = new mongoose.Schema(
         ref: "User",
       },
     ],
+    // Tracks total view count
+    views: {
+      type: Number,
+      default: 0,
+    },
+    // Array of view events for time-series charts in Recharts
+    viewLogs: [
+      {
+        timestamp: { type: Date, default: Date.now },
+        viewerId: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+      },
+    ],
     isPublished: {
       type: Boolean,
       default: false,
@@ -39,7 +51,7 @@ const blogSchema = new mongoose.Schema(
 );
 
 blogSchema.virtual("likeCount").get(function () {
-  return this.likes.length;
+  return this.likes ? this.likes.length : 0;
 });
 
 module.exports = mongoose.model("Blog", blogSchema);

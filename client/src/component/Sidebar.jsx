@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { LayoutGrid, BookOpen, Bookmark, PenTool, Settings, ArrowUp } from "lucide-react";
+import { LayoutGrid, BookOpen, Bookmark, PenTool, Settings, ArrowUp, BarChart2 } from "lucide-react";
 
 function Sidebar() {
   const navigate = useNavigate();
@@ -9,6 +9,7 @@ function Sidebar() {
   const menuItems = [
     { id: "home", label: "Feed", path: "/home", icon: LayoutGrid },
     { id: "myblog", label: "My Stories", path: "/profile", icon: BookOpen },
+    { id: "analytics", label: "Analytics", path: "/analytics", icon: BarChart2 },
     { id: "bookmarks", label: "Saved", path: "/bookmarks", icon: Bookmark },
     { id: "drafts", label: "Drafts", path: "/drafts", icon: PenTool },
     { id: "settings", label: "Settings", path: "/settings", icon: Settings },
@@ -48,17 +49,17 @@ function Sidebar() {
       <div className="md:hidden fixed bottom-8 left-1/2 -translate-x-1/2 w-[92%] max-w-md z-100">
         <nav className="relative bg-white/90 backdrop-blur-2xl rounded-[2.2rem] px-2 py-2 flex justify-between items-center shadow-[0_20px_40px_-15px_rgba(0,0,0,0.08)] border border-slate-100">
           
-          {activeIndex !== -1 && activeIndex < 4 && (
+          {activeIndex !== -1 && activeIndex < 5 && (
             <div 
               className="absolute top-2 bottom-2 transition-all duration-500 ease-[cubic-bezier(0.68,-0.55,0.27,1.55)] bg-indigo-50 rounded-[1.8rem] z-0"
               style={{
-                width: `calc((100% - 1rem) / 5)`,
-                left: `calc(0.5rem + (${activeIndex} * (100% - 1rem) / 5))`,
+                width: `calc((100% - 1rem) / 6)`,
+                left: `calc(0.5rem + (${activeIndex} * (100% - 1rem) / 6))`,
               }}
             />
           )}
 
-          {menuItems.slice(0, 4).map((item) => {
+          {menuItems.slice(0, 5).map((item) => {
             const isActive = location.pathname === item.path;
             return (
               <button
