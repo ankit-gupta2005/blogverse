@@ -131,7 +131,7 @@ function Signup() {
                     <label className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400 ml-1">Full Name</label>
                     <input 
                       type="text" 
-                      placeholder="Tejas Deshmukh" 
+                      placeholder="Your NAme" 
                       value={name}
                       required
                       className="w-full bg-slate-50 border border-slate-100 px-6 py-4 rounded-2xl outline-none focus:border-indigo-600 focus:bg-white transition-all text-slate-900 font-medium" 
@@ -143,7 +143,7 @@ function Signup() {
                     <label className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400 ml-1">Email Address</label>
                     <input 
                       type="email" 
-                      placeholder="gear5luffy79@gmail.com" 
+                      placeholder="ex@gmail.com" 
                       value={email}
                       required
                       className="w-full bg-slate-50 border border-slate-100 px-6 py-4 rounded-2xl outline-none focus:border-indigo-600 focus:bg-white transition-all text-slate-900 font-medium" 
