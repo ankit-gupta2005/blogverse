@@ -34,7 +34,6 @@ const userSchema = new mongoose.Schema(
       enum: ["user", "admin"],
       default: "user",
     },
-    // RFM Tracking Fields
     lastLogin: {
       type: Date,
       default: Date.now,
