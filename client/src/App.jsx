@@ -17,7 +17,7 @@ import SavedBlogs from './pages/SavedBlogs'
 import { getProfile } from './services/api'
 import Settings from './pages/Settings'
 import ForgotPassword from './pages/ForgotPassword'
-import CreatorAnalytics from './component/CreatorAnalytics'
+import CreatorAnalytics from './components/CreatorAnalytics'
 
 function App() {
   useEffect(() => {
