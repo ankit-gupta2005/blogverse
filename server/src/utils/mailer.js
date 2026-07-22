@@ -1,17 +1,16 @@
-const nodemailer = require('nodemailer');
+const { Resend } = require('resend');
 
-const transporter = nodemailer.createTransport({
-  host: 'smtp.gmail.com',
-  port: 587,
-  secure: false,
-  family: 4,
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS,
+const resend = new Resend(process.env.RESEND_API_KEY);
+
+const transporter = {
+  sendMail: async ({ to, subject, html, text }) => {
+    return await resend.emails.send({
+      from: 'BlogVerse <onboarding@resend.dev>',
+      to: Array.isArray(to) ? to : [to],
+      subject: subject,
+      html: html || `<p>${text}</p>`,
+    });
   },
-  tls: {
-    rejectUnauthorized: false,
-  },
-});
+};
 
 module.exports = transporter;
