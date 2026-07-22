@@ -13,7 +13,7 @@ import {
   Legend,
 } from "recharts";
 
-const COHORT_COLORS = ["#0088FE", "#FFBB28", "#FF8042"];
+const COHORT_COLORS = ["#4F46E5", "#F59E0B", "#EF4444"];
 
 const CreatorAnalytics = () => {
   const [analytics, setAnalytics] = useState(null);
@@ -42,7 +42,7 @@ const CreatorAnalytics = () => {
 
   if (loading) {
     return (
-      <div className="p-6 text-center text-gray-400">
+      <div className="p-8 text-center text-slate-400 font-medium">
         Loading Creator Analytics...
       </div>
     );
@@ -54,73 +54,79 @@ const CreatorAnalytics = () => {
   }));
 
   return (
-    <div className="p-6 bg-gray-900 text-white rounded-xl shadow-lg max-w-6xl mx-auto my-6 space-y-8">
+    <div className="p-8 bg-white border border-slate-100 rounded-[2rem] shadow-[0_20px_50px_-15px_rgba(0,0,0,0.05)] max-w-6xl mx-auto my-6 space-y-8">
       <div>
-        <h2 className="text-3xl font-bold text-indigo-400">
+        <p className="text-[10px] font-black uppercase tracking-[0.3em] text-indigo-600 mb-1">
+          Performance Dashboard
+        </p>
+        <h2 className="text-3xl font-black text-slate-900 tracking-tight">
           Creator & Behavioral Analytics
         </h2>
-        <p className="text-gray-400 text-sm mt-1">
-          Real-time view trends, reader engagement, and RFM cohort
-          segmentation.
+        <p className="text-slate-400 text-xs font-semibold mt-1">
+          Real-time view trends, reader engagement metrics, and RFM cohort segmentation.
         </p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div className="p-5 bg-gray-800 border border-gray-700 rounded-lg">
-          <p className="text-gray-400 text-sm font-medium">Total Views</p>
-          <p className="text-3xl font-bold text-blue-400 mt-2">
+        <div className="p-6 bg-slate-50/50 border border-slate-100 rounded-2xl transition-all duration-300 hover:shadow-md">
+          <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">Total Views</p>
+          <p className="text-4xl font-black text-indigo-600 mt-2">
             {analytics?.summary?.totalViews || 0}
           </p>
         </div>
-        <div className="p-5 bg-gray-800 border border-gray-700 rounded-lg">
-          <p className="text-gray-400 text-sm font-medium">Published Blogs</p>
-          <p className="text-3xl font-bold text-green-400 mt-2">
+        <div className="p-6 bg-slate-50/50 border border-slate-100 rounded-2xl transition-all duration-300 hover:shadow-md">
+          <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">Published Blogs</p>
+          <p className="text-4xl font-black text-emerald-500 mt-2">
             {analytics?.summary?.totalBlogs || 0}
           </p>
         </div>
-        <div className="p-5 bg-gray-800 border border-gray-700 rounded-lg">
-          <p className="text-gray-400 text-sm font-medium">Total Likes</p>
-          <p className="text-3xl font-bold text-purple-400 mt-2">
+        <div className="p-6 bg-slate-50/50 border border-slate-100 rounded-2xl transition-all duration-300 hover:shadow-md">
+          <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">Total Likes</p>
+          <p className="text-4xl font-black text-purple-600 mt-2">
             {analytics?.summary?.totalLikes || 0}
           </p>
         </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        <div className="bg-gray-800 p-5 rounded-lg border border-gray-700">
-          <h3 className="text-lg font-semibold mb-4 text-gray-200">
+        <div className="bg-slate-50/50 p-6 rounded-2xl border border-slate-100">
+          <h3 className="text-xs font-black uppercase tracking-[0.2em] text-slate-700 mb-6">
             View Trends (Time-Series)
           </h3>
           {analytics?.chartData && analytics.chartData.length > 0 ? (
             <div style={{ width: "100%", height: 260 }}>
               <ResponsiveContainer>
                 <LineChart data={analytics.chartData}>
-                  <XAxis dataKey="_id" stroke="#9CA3AF" />
-                  <YAxis stroke="#9CA3AF" />
+                  <XAxis dataKey="_id" stroke="#94A3B8" fontSize={11} tickLine={false} />
+                  <YAxis stroke="#94A3B8" fontSize={11} tickLine={false} />
                   <Tooltip
                     contentStyle={{
-                      backgroundColor: "#1F2937",
-                      borderColor: "#374151",
+                      backgroundColor: "#FFFFFF",
+                      borderColor: "#E2E8F0",
+                      borderRadius: "12px",
+                      boxShadow: "0 10px 25px -5px rgba(0,0,0,0.05)",
+                      color: "#0F172A",
                     }}
                   />
                   <Line
                     type="monotone"
                     dataKey="dailyViews"
-                    stroke="#3B82F6"
+                    stroke="#4F46E5"
                     strokeWidth={3}
+                    dot={{ fill: "#4F46E5", r: 4 }}
                   />
                 </LineChart>
               </ResponsiveContainer>
             </div>
           ) : (
-            <p className="text-gray-500 text-sm text-center py-12">
+            <p className="text-slate-400 text-xs font-semibold text-center py-16">
               No view history recorded yet. Read some blogs to generate view logs!
             </p>
           )}
         </div>
 
-        <div className="bg-gray-800 p-5 rounded-lg border border-gray-700">
-          <h3 className="text-lg font-semibold mb-4 text-gray-200">
+        <div className="bg-slate-50/50 p-6 rounded-2xl border border-slate-100">
+          <h3 className="text-xs font-black uppercase tracking-[0.2em] text-slate-700 mb-6">
             RFM User Behavioral Cohorts
           </h3>
           {pieChartData.length > 0 ? (
@@ -131,10 +137,10 @@ const CreatorAnalytics = () => {
                     data={pieChartData}
                     cx="50%"
                     cy="50%"
-                    innerRadius={50}
-                    outerRadius={80}
+                    innerRadius={55}
+                    outerRadius={85}
                     dataKey="value"
-                    paddingAngle={5}
+                    paddingAngle={4}
                   >
                     {pieChartData.map((_, index) => (
                       <Cell
@@ -145,16 +151,19 @@ const CreatorAnalytics = () => {
                   </Pie>
                   <Tooltip
                     contentStyle={{
-                      backgroundColor: "#1F2937",
-                      borderColor: "#374151",
+                      backgroundColor: "#FFFFFF",
+                      borderColor: "#E2E8F0",
+                      borderRadius: "12px",
+                      boxShadow: "0 10px 25px -5px rgba(0,0,0,0.05)",
+                      color: "#0F172A",
                     }}
                   />
-                  <Legend />
+                  <Legend verticalAlign="bottom" height={36} iconType="circle" />
                 </PieChart>
               </ResponsiveContainer>
             </div>
           ) : (
-            <p className="text-gray-500 text-sm text-center py-12">
+            <p className="text-slate-400 text-xs font-semibold text-center py-16">
               No user cohort data available yet.
             </p>
           )}
